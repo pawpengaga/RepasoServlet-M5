@@ -27,7 +27,8 @@ public class HelloServlet extends HttpServlet {
 	// Cada metodo del servlet tiene una request y una response, lo que le llega al Servlet y lo que este envia
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.setContentType("text/html");
+		response.getWriter().println("<h1>Hola tilines</h1>");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
