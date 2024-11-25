@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 /**
@@ -26,8 +28,20 @@ public class SessionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		// Creamos una session a partir de la interfaz HttpSession
+		HttpSession session = request.getSession();
+
+		// Se le da el usuario a la sesion
+		session.setAttribute("usuario", "Rhea");
+
+		// Vamos a escribir los datos de la session
+		response.setContentType("text/html");
+		response.getWriter().println("<h1>Session creada</h1>");
+		
+		// Con getAttribute accedemos a los atributos setteados
+		response.getWriter().println("Usuario almacenado en la variable session: " + session.getAttribute("usuario"));
+
 	}
 
 	/**

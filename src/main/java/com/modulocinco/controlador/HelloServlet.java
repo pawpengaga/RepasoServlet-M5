@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 /**
@@ -27,8 +29,23 @@ public class HelloServlet extends HttpServlet {
 	// Cada metodo del servlet tiene una request y una response, lo que le llega al Servlet y lo que este envia
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// Estamos obteniendo la session previamente creada en SessionServlet
+		// Si entramos aqui antes que en SessionServlet, esta pagina va a dar error
+		// Esto es una demostracion de que las session son universales a las aplicaciones
+
+		HttpSession session = request.getSession(false); // Usamos false para obtener la session existente
+		// No crea una session nueva, solo la almacena en una variable
+
 		response.setContentType("text/html");
-		response.getWriter().println("<h1>Hola tilines</h1>");
+
+		if(session != null && session.getAttribute("usuario") !=  null){
+			response.getWriter().println("<h1>Hola tilines</h1>");
+			response.getWriter().println("<p> "+ session.getAttribute("usuario") + " </p>");
+		} else {
+			response.getWriter().println("<p> "+ "TU ERE INVITADO" + " </p>");
+		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
