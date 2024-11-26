@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 // Aqui especificamos las rutas que queremos que sean protegidas
 // Esto es un arreglo
-@WebFilter(urlPatterns = {"/hello"})
+@WebFilter(urlPatterns = {"/hello", "/dashboard"})
 public class AuthFilter extends HttpFilter implements Filter {
        
     /**
@@ -55,7 +55,7 @@ public class AuthFilter extends HttpFilter implements Filter {
 		// Se verifica que hay una session activa
 		if(session == null || session.getAttribute("usuario") == null){
 			// Aqui se hace una redireccion al "login"
-			httpResponse.sendRedirect("index.html");
+			httpResponse.sendRedirect("login.html");
 			System.out.println("Validacion no pasada!");
 			// httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
 		} else {

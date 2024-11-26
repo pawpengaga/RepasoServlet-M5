@@ -36,7 +36,7 @@ public class DashboardServlet extends HttpServlet {
 			response.getWriter().println("<h1>Dashboard</h1>");
 			response.getWriter().println("<br>");
 			response.getWriter().println("<h2>Bienvenid@: " + session.getAttribute("usuario") + "</h2>");
-			response.getWriter().println("<a href=\""+ request.getContextPath()+"/dashboard" +"\">Cerrar sesion</a>");
+			response.getWriter().println("<a href=\""+ request.getContextPath()+"/logout" +"\">Cerrar sesion</a>");
 		} else {
 			response.getWriter().println("<h1>ACCESO DENEGADO.</h1>");
 		}
