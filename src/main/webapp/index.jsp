@@ -10,7 +10,7 @@
   <!-- indexhtml siempre esta en la raiz de webapp -->
   <h1><em>HOLA *******</em></h1>
   <br>
-  <a href="login.jsp">Login</a>
-  <a href="registro.html">Registrarse</a>
+  <a href="/RepasoServlet/login">Login</a>
+  <a href="/RepasoServlet/registro">Registrarse</a>
 </body>
 </html>
