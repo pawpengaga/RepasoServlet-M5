@@ -55,7 +55,7 @@ public class AuthFilter extends HttpFilter implements Filter {
 		// Se verifica que hay una session activa
 		if(session == null || session.getAttribute("usuario") == null){
 			// Aqui se hace una redireccion al "login"
-			httpResponse.sendRedirect("login.html");
+			httpResponse.sendRedirect("login.jsp");
 			System.out.println("Validacion no pasada!");
 			// httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
 		} else {

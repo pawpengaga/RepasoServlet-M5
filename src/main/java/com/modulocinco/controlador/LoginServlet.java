@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 			// Si la clave no es correcta se muestra un mensaje
 			response.setContentType("text/html");
 			response.getWriter().println("<h1>Fallo login</h1>");
-			response.getWriter().println("<a href=\"login.html\">Intentar de nuevo...</a>");
+			response.getWriter().println("<a href=\"login.jsp\">Intentar de nuevo...</a>");
 		}
 
 	}
