@@ -20,7 +20,7 @@ import com.modulocinco.modelo.Usuario;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	List<Usuario> usuarios = new ArrayList<>();
+	// List<Usuario> usuarios = new ArrayList<>();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -49,18 +49,25 @@ public class LoginServlet extends HttpServlet {
 		String usuario = request.getParameter("usuario");
 		String clave = request.getParameter("clave");
 
-		if ("admin".equals(usuario) && "1234".equals(clave)) {
+		// Obtener la lista desde el contexto
+		List<Usuario> usuarios = (List<Usuario>) getServletContext().getAttribute("usuarios");
+
+		// Autenticador
+		boolean autenticado = usuarios.stream().anyMatch(user -> user.getNombre().equals(usuario) && user.getClave().equals(clave));
+		Usuario user = usuarios.stream().filter(usr -> usr.getUsuario().equals(usuario)).findFirst().orElse(null);
+
+
+		if (autenticado) {
 			// Si las credenciales corresponden, se crea la session
 			HttpSession session = request.getSession();
-			session.setAttribute("usuario", "Rhea");
+			session.setAttribute("usuario", user.getNombre());
 
 			// Con la session creada, redirigir a un dashboard
 			response.sendRedirect(request.getContextPath()+"/dashboard");
 		} else {
 			// Si la clave no es correcta se muestra un mensaje
-			response.setContentType("text/html");
-			response.getWriter().println("<h1>Fallo login</h1>");
-			response.getWriter().println("<a href=\"login.jsp\">Intentar de nuevo...</a>");
+			request.setAttribute("error", "Crendenciales invalidas");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 
 	}

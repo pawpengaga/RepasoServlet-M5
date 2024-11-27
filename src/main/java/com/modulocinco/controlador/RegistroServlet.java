@@ -18,7 +18,7 @@ import com.modulocinco.modelo.Usuario;
 public class RegistroServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	List<Usuario> usuarios = new ArrayList<>();
+	List<Usuario> usuarios;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -43,8 +43,18 @@ public class RegistroServlet extends HttpServlet {
 		String usuario = request.getParameter("usuario");
 		String clave = request.getParameter("clave");
 
-		usuarios.add(new Usuario(nombre, usuario, clave));
-		response.sendRedirect("/RepasoServlet/");
+		List<Usuario> usuarios = (List<Usuario>) getServletContext().getAttribute("usuarios");
+
+		boolean existe = usuarios.stream().anyMatch(user -> user.getUsuario().equals(usuario));
+		if (existe) {
+			request.setAttribute("error", "Usuario ya existe");
+			request.getRequestDispatcher("registro.jsp").forward(request, response);
+		} else {
+			usuarios.add(new Usuario(nombre, usuario, clave));
+			getServletContext().setAttribute("usuarios", usuarios);
+			response.sendRedirect("/RepasoServlet/");
+		}
+
 	}
 
 }
