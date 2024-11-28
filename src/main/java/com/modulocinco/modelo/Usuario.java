@@ -6,6 +6,10 @@ public class Usuario {
   private String usuario;
   private String clave;
 
+  public Usuario(){
+    
+  }
+
   public Usuario(String nombre, String usuario, String clave) {
     this.nombre = nombre;
     this.usuario = usuario;
